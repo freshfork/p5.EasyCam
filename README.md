@@ -16,26 +16,26 @@ Original (presumed abandoned) fork source: https://github.com/diwi/p5.EasyCam
 
 ## Releases
 
-- [p5.easycam.js](https://github.com/freshfork/p5.EasyCam/p5.easycam.js)
-- [p5.easycam.min.js](https://github.com/freshfork/p5.EasyCam/p5.easycam.min.js)
+- [p5.easycam.js](https://freshfork.github.io/p5.EasyCam/p5.easycam.js)
+- [p5.easycam.min.js](https://freshfork.github.io/p5.EasyCam/p5.easycam.min.js)
 - [All Releases](https://github.com/freshfork/p5.EasyCam/releases)
 
 
 ## Examples
 
 #### EasyCam.js - Advanced Shader/Lighting
-- [RandomBoxes](https://github.com/freshfork/p5.EasyCam/examples/RandomBoxes/)
-- [AnimatedPointLights](https://github.com/freshfork/p5.EasyCam/examples/AnimatedPointLights/)
-- [PerPixelPhong](https://github.com/freshfork/p5.EasyCam/examples/PerPixelPhong/)
+- [RandomBoxes](https://freshfork.github.io/p5.EasyCam/examples/RandomBoxes/)
+- [AnimatedPointLights](https://freshfork.github.io/p5.EasyCam/examples/AnimatedPointLights/)
+- [PerPixelPhong](https://freshfork.github.io/p5.EasyCam/examples/PerPixelPhong/)
 
 #### EasyCam.js - Basic
-- [CameraStates](https://github.com/freshfork/p5.EasyCam/examples/CameraStates/)
-- [CameraStates_Basic](https://github.com/freshfork/p5.EasyCam/examples/CameraStates_Basic/)
-- [HeadUpDisplay](https://github.com/freshfork/p5.EasyCam/examples/HeadUpDisplay/)
-- [QuickStart](https://github.com/freshfork/p5.EasyCam/examples/QuickStart/)
-- [QuickStart_Ortho](https://github.com/freshfork/p5.EasyCam/examples/QuickStart_Ortho/)
-- [SplitView](https://github.com/freshfork/p5.EasyCam/examples/SplitView/)
-- [MultiView](https://github.com/freshfork/p5.EasyCam/examples/MultiView/)
+- [CameraStates](https://freshfork.github.io/p5.EasyCam/examples/CameraStates/)
+- [CameraStates_Basic](https://freshfork.github.io/p5.EasyCam/examples/CameraStates_Basic/)
+- [HeadUpDisplay](https://freshfork.github.io/p5.EasyCam/examples/HeadUpDisplay/)
+- [QuickStart](https://freshfork.github.io/p5.EasyCam/examples/QuickStart/)
+- [QuickStart_Ortho](https://freshfork.github.io/p5.EasyCam/examples/QuickStart_Ortho/)
+- [SplitView](https://freshfork.github.io/p5.EasyCam/examples/SplitView/)
+- [MultiView](https://freshfork.github.io/p5.EasyCam/examples/MultiView/)
 
 
 
