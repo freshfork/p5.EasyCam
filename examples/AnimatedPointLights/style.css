@@ -1,0 +1,55 @@
+:root {
+}
+
+.unselectable{
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.selectable-text{
+  -moz-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+}
+
+
+*{
+  margin: 0px;
+  padding: 0px;
+}
+
+
+html{
+  width:100%;
+  height:100%;
+  overflow: hidden;
+}
+
+body{
+  width:100%;
+  height:100%;
+  background-color: rgba(0,0,0,1);
+  font-family: FontAwesome, Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: small;
+  color: rgb(96, 96, 96);
+}
+
+
+
+#hud{
+  position: absolute;
+  margin: 10px;
+}
+
+
+
+

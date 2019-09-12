@@ -1,0 +1,212 @@
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>RandomBoxes</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+  
+  <script src="../../p5.easycam.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
+  
+  <script id="phong.vert" type="x-shader/x-vertex"> 
+  
+    #ifdef GL_ES
+      precision highp float;
+      precision mediump int;
+    #endif
+
+    // attributes, in
+    attribute vec3 aPosition;
+    attribute vec3 aNormal;
+    attribute vec2 aTexCoord;
+    attribute vec4 aVertexColor;
+
+    // attributes, out
+    varying vec3 var_vertPos;
+    varying vec4 var_vertCol;
+    varying vec3 var_vertNormal;
+    varying vec2 var_vertTexCoord;
+    
+    // matrices
+    uniform mat4 uModelViewMatrix;
+    uniform mat4 uProjectionMatrix;
+    uniform mat3 uNormalMatrix;
+
+    void main() {
+      gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aPosition, 1.0);
+
+      // just passing things through
+      var_vertPos      = aPosition;
+      var_vertCol      = aVertexColor;
+      var_vertNormal   = aNormal;
+      var_vertTexCoord = aTexCoord;
+    }
+
+  </script>
+  
+  
+  <script id="phong.frag" type="x-shader/x-fragment">
+  
+    #ifdef GL_ES
+      precision highp float;
+      precision mediump int;
+    #endif
+
+    
+    // vertex-data, passing through
+    varying vec3 var_vertPos;
+    varying vec4 var_vertCol;
+    varying vec3 var_vertNormal;
+    varying vec2 var_vertTexCoord;
+    
+    // matrices
+    uniform mat4 uModelViewMatrix;
+    uniform mat4 uProjectionMatrix;
+    uniform mat3 uNormalMatrix;
+    
+    
+    struct Ambientlight{
+      vec3 col;
+    };
+    
+    struct DirectLight {
+      vec3 dir;
+      vec3 col;
+    };
+    
+    struct PointLight {
+      vec3  pos;
+      vec3  col;
+      float att;
+    };
+
+    struct Material {
+      vec3  diff;
+      vec3  spec;
+      float spec_exp;
+    };
+    
+    
+    // lights
+    uniform Ambientlight ambientlight;
+    
+    #define NUM_DIRECTLIGHTS 1
+    uniform DirectLight directlights[NUM_DIRECTLIGHTS];
+    
+    #define NUM_POINTLIGHTS 3
+    uniform PointLight pointlights[NUM_POINTLIGHTS];
+    
+    
+    // materials
+    uniform Material material;
+    
+
+    float smootherstep(float edge0, float edge1, float x) {
+      x = clamp((x - edge0) / (edge1 - edge0), 0.0, 1.0);
+      return x * x * x * (x * (x * 6.0 - 15.0) + 10.0);
+    }
+    
+    float attenuation(float att, float dist){
+      float attinv = 1.0 / att;
+      // return 1.0 / (1.0 + attinv*dist + attinv*attinv*dist*dist);
+      return smootherstep(att, 0.0, dist);
+    }
+    
+    float getKd(vec3 vertNormal, vec3 lightDir){
+      return max(dot(-lightDir, vertNormal), 0.0);
+    }
+    
+    float getKs(vec3 vertNormal, vec3 lightDir, vec3 vertDir){
+      lightDir = normalize(reflect(lightDir, vertNormal));
+      return pow(max(dot(lightDir, vertDir), 0.0), material.spec_exp);
+    }
+    
+    
+    
+    
+    void main() {
+    
+      // camera/eye space
+      vec3 vertNormal = normalize(uNormalMatrix * var_vertNormal);
+      vec3 vertPos    = (uModelViewMatrix * vec4(var_vertPos, 1)).xyz;
+      vec3 vertDir    = -normalize(vertPos);
+
+      // summed up light contributions
+      vec3 fragcol = vec3(0.0);
+      
+      float kdView = 1.0;// - sqrt(max(dot(vertNormal, vertDir), 0.0));
+  
+      // if(!gl_FrontFacing)
+      {
+        // ambientlight
+        {
+          fragcol += material.diff * ambientlight.col;
+        }
+        
+        // directlights
+        for(int i = 0; i < NUM_DIRECTLIGHTS; i++)
+        {
+          DirectLight light = directlights[i];
+        
+          // light direction
+          vec3 lightDir = light.dir;
+        
+          // diffuse, specular
+          float kd = getKd(vertNormal, lightDir);
+          float ks = getKs(vertNormal, lightDir, vertDir) * kdView;
+        
+          fragcol += material.diff * light.col * kd;
+          fragcol += material.spec * light.col * ks * (1.0 - step(kd, 0.0));
+        }
+        
+        // pointlights
+        for(int i = 0; i < NUM_POINTLIGHTS; i++)
+        {
+    
+          PointLight light = pointlights[i];
+          
+          // light direction
+          vec3 lightDir = normalize(vertPos - light.pos);
+          
+          // attenuation/fallofff
+          float lightDist = distance(light.pos, vertPos);
+          float att = attenuation(light.att, lightDist);
+          
+          // diffuse specular
+          float kd = getKd(vertNormal, lightDir         );
+          float ks = getKs(vertNormal, lightDir, vertDir) * kdView;
+          
+          fragcol += material.diff * light.col * kd * att;
+          fragcol += material.spec * light.col * ks * att * (1.0 - step(kd, 0.0));
+        }
+      }
+      
+      fragcol = clamp(fragcol, 0.0, 1.0);
+
+      // frag, out
+      gl_FragColor = vec4(fragcol, 1);
+      
+      // gamma, 2.2
+      gl_FragColor.xyz = pow(gl_FragColor.xyz, vec3(1.0/2.2));
+      
+      gl_FragColor = clamp(gl_FragColor, vec4(0.0), vec4(1.0));
+
+    }
+    
+  </script>
+  
+  
+
+</head>
+<body oncontextmenu="return false;">
+
+  <div id="hud" class="unselectable"><ul></ul></div>
+
+  <script src="RandomBoxes.js"></script>
+
+</body>
+
+</html>
