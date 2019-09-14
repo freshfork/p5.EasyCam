@@ -42,15 +42,9 @@ Original (presumed abandoned) fork source: https://github.com/diwi/p5.EasyCam
 ## Usage
 
 ```javascript
-var easycam;
-
 function setup() { 
   createCanvas(windowWidth, windowHeight, WEBGL);
-
-  easycam = createEasyCam();
-  // easycam = new Dw.EasyCam(this._renderer);
-  // easycam = new Dw.EasyCam(this._renderer, {distance:300, center:[0,0,0]});
-  // easycam = new Dw.EasyCam(this._renderer, {distance:300, center:[0,0,0], rotation:[1,0,0,0]});
+  createEasyCam();
 } 
 
 function draw(){
@@ -59,7 +53,15 @@ function draw(){
   box(200);
 }
 ```
-something to play with: [jsfiddle](https://jsfiddle.net/intrinsica/n95sgbvr/)
+Mouse left-drag will rotate the camera around the subject, a right drag will zoom in and out, and a middle-drag will pan. A double-click restores the camera to its original position.
+
+The camera is positioned on a sphere whose radius is a given distance from the look-at point. Rotations are around the looked-at point.
+
+EasyCam is impervious to gimbal lock, and has no known “singularities” or discontinuities in its behavior.
+
+Simple examples to play with:
+- [jsfiddle](https://jsfiddle.net/intrinsica/n95sgbvr/)
+- [p5editor](https://editor.p5js.org/jwdunn1/sketches/Awjm6VpHo)
 
 
 ## Reference
