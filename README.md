@@ -7,7 +7,8 @@ Simple 3D camera control for [p5js](https://p5js.org/) and the WEBGL renderer.
 
 This library is a derivative of the original PeasyCam Library by Jonathan Feinberg 
 and combines new useful features with the great look and feel of the original version.
-This p5js library version was started by Thomas Diewald in 2017.
+This p5js library was started by Thomas Diewald in 2017. It has been updated to work
+with the latest p5js version 0.9.0 and will be maintained going forward.
 
 Processing/Java version of this project: https://github.com/diwi/peasycam/tree/PeasyCam3
 
@@ -62,6 +63,7 @@ EasyCam is impervious to gimbal lock, and has no known “singularities” or di
 Simple examples to play with:
 - [jsfiddle](https://jsfiddle.net/intrinsica/n95sgbvr/)
 - [p5editor](https://editor.p5js.org/jwdunn1/sketches/Awjm6VpHo)
+- [openprocessing](https://www.openprocessing.org/sketch/749740)
 
 
 ## Reference
