@@ -1,7 +1,7 @@
 ![MultiView](screenshots/RandomBoxes_crop.jpg)
 
 
-# p5.EasyCam
+## p5.EasyCam
 
 Simple 3D camera control for [p5js](https://p5js.org/) and the WEBGL renderer.
 
@@ -15,14 +15,14 @@ Processing/Java version of this project: https://github.com/diwi/peasycam/tree/P
 Original (presumed abandoned) fork source: https://github.com/diwi/p5.EasyCam
 
 
-## Releases
+### Releases
 
 - [p5.easycam.js](https://freshfork.github.io/p5.EasyCam/p5.easycam.js)
 - [p5.easycam.min.js](https://freshfork.github.io/p5.EasyCam/p5.easycam.min.js)
 - [All Releases](https://github.com/freshfork/p5.EasyCam/releases)
 
 
-## Examples
+### Examples
 
 #### EasyCam.js - Advanced Shader/Lighting
 - [RandomBoxes](https://freshfork.github.io/p5.EasyCam/examples/RandomBoxes/)
@@ -40,12 +40,18 @@ Original (presumed abandoned) fork source: https://github.com/diwi/p5.EasyCam
 
 
 
-## Usage
+### Usage
 
 ```javascript
 function setup() { 
   createCanvas(windowWidth, windowHeight, WEBGL);
+  
+  // the simplest method to enable the camera
   createEasyCam();
+
+  // suppress right-click context menu
+  document.oncontextmenu = function() { return false; }
+  document.onmousedown   = function() { return false; }
 } 
 
 function draw(){
@@ -66,20 +72,16 @@ Simple examples to play with:
 - [openprocessing](https://www.openprocessing.org/sketch/749740)
 
 
-## Reference
+### Reference Documentation
 
   - [p5.EasyCam.documentation](https://github.com/freshfork/p5.EasyCam/blob/master/documentation/p5.easycam.docs.md)
   
   
+## Quick Reference
+
+### Camera Setup
+
 ```javascript
-
-##
-## QUICKREF
-##
-
-
-## CAMERA SETUP
-
 // constructor
 new Dw.EasyCam(p5.RendererGL, state);
 new Dw.EasyCam(p5.RendererGL, {
@@ -92,6 +94,7 @@ new Dw.EasyCam(p5.RendererGL, {
 // examples
 createEasyCam(); // uses the primary WEBGL renderer and default settings
  ...
+createEasyCam({distance:z});
 createEasyCam(p5.RendererGL);
 createEasyCam(p5.RendererGL, {distance:z});
 createEasyCam(p5.RendererGL, {distance:z, center:[x,y,z]});
@@ -100,18 +103,13 @@ new Dw.EasyCam(p5.RendererGL);
 new Dw.EasyCam(p5.RendererGL, {distance:z});
 new Dw.EasyCam(p5.RendererGL, {distance:z, center:[x,y,z]});
   ... 
+```
 
-## CAMERA STATE
+The constructors above return an EasyCam object whose methods are listed below.
 
-state = {
-  distance : z,                 // scalar
-  center   : [x, y, z],         // vector
-  rotation : [q0, q1, q2, q3],  // quaternion
-}
+### Camera Methods
 
-
-## CAMERA METHODS
-
+```javascript
 // CAMERA, MISC
 setCanvas(renderer) // webgl-renderer
 getCanvas()
@@ -176,8 +174,22 @@ reset(duration)
 // HEAD_UP_DISPLAY
 beginHUD(renderer, w, h)
 endHUD(renderer)
-
 ```
+
+### Camera State Object
+
+```javascript
+var easy=createEasyCam();
+let state = {
+  distance : z,                 // scalar
+  center   : [x, y, z],         // vector
+  rotation : [q0, q1, q2, q3],  // quaternion
+};
+easy.setState(state, 1000); // animate to state over the period of 1 second
+```
+
+Example: [openprocessing](https://www.openprocessing.org/sketch/622115)
+
 
 
 ## Screenshots
