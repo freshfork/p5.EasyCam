@@ -51,7 +51,6 @@ function setup() {
 
   // suppress right-click context menu
   document.oncontextmenu = function() { return false; }
-  document.onmousedown   = function() { return false; }
 } 
 
 function draw(){
@@ -60,7 +59,15 @@ function draw(){
   box(200);
 }
 ```
-Mouse left-drag will rotate the camera around the subject, a right drag will zoom in and out, and a middle-drag will pan. A double-click restores the camera to its original position.
+To control the movement of the camera:
+
+**rotate** around the look-at point: left-click and drag mouse or touch drag
+
+**pan** the scene: middle-click and drag the mouse or two-finger drag
+
+**zoom** out/in: right-click drag or pinch/spread
+
+**reset** to the starting state: double-click or double-tap
 
 The camera is positioned on a sphere whose radius is a given distance from the look-at point. Rotations are around the looked-at point.
 
