@@ -19,6 +19,7 @@ Original (presumed abandoned) fork source: https://github.com/diwi/p5.EasyCam
 
 - [p5.easycam.js](https://freshfork.github.io/p5.EasyCam/p5.easycam.js)
 - [p5.easycam.min.js](https://freshfork.github.io/p5.EasyCam/p5.easycam.min.js)
+- [CDN: p5.easycam.min.js](https://cdn.jsdelivr.net/gh/freshfork/p5.EasyCam@1.0.10/p5.easycam.min.js)
 - [All Releases](https://github.com/freshfork/p5.EasyCam/releases)
 
 
@@ -55,19 +56,29 @@ function setup() {
 
 function draw(){
   background(64);
-  fill(255);
+  lights();
   box(200);
 }
 ```
 To control the movement of the camera:
 
-**rotate** around the look-at point: left-click and drag mouse or touch drag
+**rotate** around the look-at point  
+mouse: left-click and drag  
+touch: one-finger drag  
 
-**pan** the scene: middle-click and drag the mouse or two-finger drag
+**pan** the scene  
+mouse: middle-click and drag  
+touch: two-finger drag  
 
-**zoom** out/in: right-click drag or pinch/spread
+**zoom** out/in  
+mouse: right-click drag  
+touch: pinch/spread  
 
-**reset** to the starting state: double-click or double-tap
+**reset** to the starting state  
+mouse: double-click  
+touch: double-tap  
+
+![Camera control](screenshots/EasyCam1.gif)
 
 The camera is positioned on a sphere whose radius is a given distance from the look-at point. Rotations are around the looked-at point.
 
@@ -81,10 +92,12 @@ Simple examples to play with:
 
 ### Reference Documentation
 
-  - [p5.EasyCam.documentation](https://github.com/freshfork/p5.EasyCam/blob/master/documentation/p5.easycam.docs.md)
-  
-  
+[p5.EasyCam.documentation](https://github.com/freshfork/p5.EasyCam/blob/master/documentation/p5.easycam.docs.md)
+
+
 ## Quick Reference
+
+[openprocessing tutorial](https://www.openprocessing.org/sketch/756182)
 
 ### Camera Setup
 
