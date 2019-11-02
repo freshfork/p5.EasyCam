@@ -88,6 +88,7 @@ Simple examples to play with:
 - [jsfiddle](https://jsfiddle.net/intrinsica/n95sgbvr/)
 - [p5editor](https://editor.p5js.org/jwdunn1/sketches/Awjm6VpHo)
 - [openprocessing](https://www.openprocessing.org/sketch/749740)
+- [vue.js integration](https://jsfiddle.net/intrinsica/7rt695bs/13/)
 
 
 ### Reference Documentation
