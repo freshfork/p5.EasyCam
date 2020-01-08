@@ -5,14 +5,9 @@
 
 Simple 3D camera control for [p5js](https://p5js.org/) and the WEBGL renderer.
 
-This library is a derivative of the original PeasyCam Library by Jonathan Feinberg 
-and combines new useful features with the great look and feel of the original version.
-This p5js library was started by Thomas Diewald in 2017. It has been updated to work
-with the latest p5js version 0.9.0 and will be maintained going forward.
+To get started quickly with EasyCam, take a look at the following tutorial on OpenProcessing.org:
 
-Processing/Java version of this project: https://github.com/diwi/peasycam/tree/PeasyCam3
-
-Original (presumed abandoned) fork source: https://github.com/diwi/p5.EasyCam
+--> [openprocessing tutorial](https://www.openprocessing.org/sketch/756182)
 
 
 ### Releases
@@ -90,6 +85,16 @@ Simple examples to play with:
 - [openprocessing](https://www.openprocessing.org/sketch/749740)
 - [vue.js integration](https://jsfiddle.net/intrinsica/7rt695bs/13/)
 
+### History
+
+This library is a derivative of the original PeasyCam Library by Jonathan Feinberg 
+and combines new useful features with the great look and feel of the original version.
+This p5js library was started by Thomas Diewald in 2017. It has been updated to work
+with the latest p5js version 0.10.2 and will be maintained going forward.
+
+Processing/Java version of this project: https://github.com/diwi/peasycam/tree/PeasyCam3
+
+Original (presumed abandoned) fork source: https://github.com/diwi/p5.EasyCam
 
 ### Reference Documentation
 
@@ -97,8 +102,6 @@ Simple examples to play with:
 
 
 ## Quick Reference
-
-[openprocessing tutorial](https://www.openprocessing.org/sketch/756182)
 
 ### Camera Setup
 
