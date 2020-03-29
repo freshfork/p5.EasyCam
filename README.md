@@ -34,6 +34,10 @@ To get started quickly with EasyCam, take a look at the following tutorial on Op
 - [SplitView](https://freshfork.github.io/p5.EasyCam/examples/SplitView/)
 - [MultiView](https://freshfork.github.io/p5.EasyCam/examples/MultiView/)
 
+#### Alternate first-person camera
+
+If you are seeking a simple first-person point-of-view camera library for p5.js, take a look at p5.RoverCam
+- [p5.RoverCam](https://github.com/freshfork/p5.RoverCam)
 
 
 ### Usage
