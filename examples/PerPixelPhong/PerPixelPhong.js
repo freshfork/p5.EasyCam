@@ -2,7 +2,7 @@
  * 
  * The p5.EasyCam library - Easy 3D CameraControl for p5.js and WEBGL.
  *
- *   Copyright 2018-2019 by p5.EasyCam authors
+ *   Copyright 2018-2020 by p5.EasyCam authors
  *
  *   Source: https://github.com/freshfork/p5.EasyCam
  *
@@ -297,7 +297,6 @@ function draw () {
 
 
 function setShader(shader){
-  shader.uniforms.uUseLighting = true; // required for p5js
   this.shader(shader);
 }
 

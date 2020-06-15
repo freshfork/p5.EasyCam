@@ -2,7 +2,7 @@
  * 
  * The p5.EasyCam library - Easy 3D CameraControl for p5.js and WEBGL.
  *
- *   Copyright 2018-2019 by p5.EasyCam authors
+ *   Copyright 2018-2020 by p5.EasyCam authors
  *
  *   Source: https://github.com/freshfork/p5.EasyCam
  *
@@ -26,10 +26,7 @@
 var easycam;
 
 function setup() { 
-
-  pixelDensity(1);
-
-  var canvas = createCanvas(windowWidth, windowHeight, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
   setAttributes('antialias', true);
   
   // define initial state
@@ -44,7 +41,7 @@ function setup() {
   
   // slower transitions look nicer in the ortho mode
   easycam.setDefaultInterpolationTime(2000); //slower transition
-  // start with an animated rotation
+  // start with an animated rotation with 2.5 second transition time
   easycam.setRotation(Dw.Rotation.create({angles_xyz:[PI/2, PI/2, PI/2]}), 2500);
   easycam.setDistance(400, 2500);
 
@@ -94,36 +91,4 @@ function draw(){
     box(random(10,40));
     pop();
   }
- 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

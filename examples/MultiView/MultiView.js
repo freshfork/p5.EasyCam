@@ -2,7 +2,7 @@
  * 
  * The p5.EasyCam library - Easy 3D CameraControl for p5.js and WEBGL.
  *
- *   Copyright 2018-2019 by p5.EasyCam authors
+ *   Copyright 2018-2020 by p5.EasyCam authors
  *
  *   Source: https://github.com/freshfork/p5.EasyCam
  *
@@ -128,7 +128,7 @@ function draw(){
   
   // clear background once, for the whole window
   setGLGraphicsViewport(0,0,width,height);
-  background(0);
+  clear();
   
   randomSeed(0);
   
