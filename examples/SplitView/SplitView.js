@@ -2,7 +2,7 @@
  * 
  * The p5.EasyCam library - Easy 3D CameraControl for p5.js and WEBGL.
  *
- *   Copyright 2018-2019 by p5.EasyCam authors
+ *   Copyright 2018-2020 by p5.EasyCam authors
  *
  *   Source: https://github.com/freshfork/p5.EasyCam
  *
@@ -90,7 +90,7 @@ function windowResized() {
 
 
 function draw(){
- 
+  clear();
   handleSuperController([easycam1, easycam2]);
   
   // render a scene for each camera
@@ -146,8 +146,8 @@ function displayScene(cam){
   pg.perspective(60 * PI/180, w/h, 1, 5000);
 
   // BG
-	if(cam.IDX == 0) pg.background(220);
-  if(cam.IDX == 1) pg.background(32);
+  if(cam.IDX == 0) {pg.clear(220);pg.background(220);}
+  if(cam.IDX == 1) {pg.clear(32);pg.background(32);}
  
   pg.ambientLight(100);
   pg.pointLight(255, 255, 255, 0, 0, 0);
