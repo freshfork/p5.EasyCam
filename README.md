@@ -227,3 +227,5 @@ Example: [openprocessing](https://www.openprocessing.org/sketch/622115)
 ![PerPixelPhong](screenshots/PerPixelPhong.jpg)
 
 ![CameraStates](screenshots/CameraStates.jpg)
+
+![MultiCanvas](screenshots/MultiCanvas.png)
