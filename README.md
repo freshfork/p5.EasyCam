@@ -37,7 +37,7 @@ To get started quickly with EasyCam, take a look at the following tutorial on Op
 
 #### Alternate first-person camera
 
-If you are seeking a simple first-person point-of-view camera library for p5.js, take a look at p5.RoverCam
+For a simple first-person point-of-view p5.js camera library, take a look at p5.RoverCam
 - [p5.RoverCam](https://github.com/freshfork/p5.RoverCam)
 
 
