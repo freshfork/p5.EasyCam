@@ -2,7 +2,7 @@
  * 
  * The p5.EasyCam library - Easy 3D CameraControl for p5.js and WEBGL.
  *
- *   Copyright 2018-2020 by p5.EasyCam authors
+ *   Copyright 2018-2021 by p5.EasyCam authors
  *
  *   Source: https://github.com/freshfork/p5.EasyCam
  *
@@ -45,7 +45,7 @@ var easycam, save_id = 1;
 
 let inconsolata;
 function preload() {
-  inconsolata = loadFont('inconsolata.woff');
+  inconsolata = loadFont('http://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf');
 }
 
 function setup() { 

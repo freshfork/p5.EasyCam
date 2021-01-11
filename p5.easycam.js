@@ -2,7 +2,7 @@
  * 
  * The p5.EasyCam library - Easy 3D CameraControl for p5.js and WEBGL.
  *
- *   Copyright © 2017-2020 by p5.EasyCam authors
+ *   Copyright © 2017-2021 by p5.EasyCam authors
  *
  *   Source: https://github.com/freshfork/p5.EasyCam
  *
@@ -33,7 +33,7 @@ var Dw = (function(ext) {
 const INFO = 
 {
   /** name    */ LIBRARY : "p5.EasyCam",
-  /** version */ VERSION : "1.0.10",
+  /** version */ VERSION : "1.2.0",
   /** author  */ AUTHOR  : "p5.EasyCam authors",
   /** source  */ SOURCE  : "https://github.com/freshfork/p5.EasyCam",
   
@@ -76,6 +76,7 @@ class EasyCam {
       console.log("renderer needs to be an instance of p5.RendererGL");
       return;
     }
+    var bounds = renderer.elt.getBoundingClientRect();
     
     // define default args
     args = args || {};
@@ -83,7 +84,7 @@ class EasyCam {
     if(args.center   === undefined) args.center    = [0, 0, 0];
     if(args.rotation === undefined) args.rotation  = Rotation.identity();
     if(args.viewport === undefined) args.viewport  = [0, 0, renderer.width, renderer.height];
-   
+    if(args.offset   === undefined) args.offset    = [bounds.x + window.scrollX, bounds.y + window.scrollY];
 
     // library info
     this.INFO = INFO;
@@ -149,9 +150,14 @@ class EasyCam {
     // viewport for the mouse-pointer [x,y,w,h]
     this.viewport = args.viewport.slice();
     
-
+    // offset of the canvas in the container
+    this.offset = args.offset.slice();
     
-    
+    // add a handler for window resizing
+    window.addEventListener('resize', function (e){
+      let p = renderer.elt.getBoundingClientRect();
+      cam.offset = [p.x + window.scrollX, p.y + window.scrollY];
+    });
     
     // mouse/touch/key action handler
     this.mouse = {
@@ -229,13 +235,16 @@ class EasyCam {
 
       mousedown : function(event){
         var mouse = cam.mouse;
+        // Account for canvas shift:
+        var offX = cam.offset[0] - window.scrollX,
+            offY = cam.offset[1] - window.scrollY;
         
         if(event.button === 0) mouse.button |= mouse.BUTTON.LMB;
         if(event.button === 1) mouse.button |= mouse.BUTTON.MMB;
         if(event.button === 2) mouse.button |= mouse.BUTTON.RMB;
         
-        if(mouse.insideViewport(event.x, event.y)){
-          mouse.updateInput(event.x, event.y, event.y);
+        if(mouse.insideViewport(event.x - offX, event.y - offY)){
+          mouse.updateInput(event.x - offX, event.y - offY, event.y - offY);
           mouse.ismousedown = mouse.button > 0;
           mouse.isPressed   = mouse.ismousedown;
           cam.SHIFT_CONSTRAINT = 0;
@@ -278,9 +287,11 @@ class EasyCam {
       },
       
       dblclick : function(event){
-        var x = event.x;
-        var y = event.y;
-        if(cam.mouse.insideViewport(x, y)){
+        // Account for canvas shift:
+        var offX = cam.offset[0] - window.scrollX,
+            offY = cam.offset[1] - window.scrollY;
+
+        if(cam.mouse.insideViewport(event.x - offX, event.y - offY)){
           cam.reset();
         }
       },
@@ -307,19 +318,22 @@ class EasyCam {
         var avg_y = 0.0;
         var avg_d = 0.0;
         var i, dx, dy, count = touches.length;
+        // Account for canvas shift:
+        var offX = cam.offset[0] - window.scrollX,
+            offY = cam.offset[1] - window.scrollY;
 
         // center, averaged touch position
         for(i = 0; i < count; i++){
-          avg_x += touches[i].clientX;
-          avg_y += touches[i].clientY;
+          avg_x += touches[i].clientX - offX;
+          avg_y += touches[i].clientY - offY;
         }
         avg_x /= count;
         avg_y /= count;
         
         // offset, mean distance to center
         for(i = 0; i < count; i++){
-          dx = avg_x - touches[i].clientX;
-          dy = avg_y - touches[i].clientY;
+          dx = avg_x - (touches[i].clientX - offX);
+          dy = avg_y - (touches[i].clientY - offY);
           avg_d += Math.sqrt(dx*dx + dy*dy);
         }
         avg_d /= count;
@@ -366,6 +380,7 @@ class EasyCam {
 		    event.stopPropagation();
         
         var mouse = cam.mouse;
+
         mouse.istouchdown = false,
         mouse.isPressed = (mouse.istouchdown || mouse.ismousedown);
         cam.SHIFT_CONSTRAINT = 0;

@@ -14,7 +14,7 @@ To get started quickly with EasyCam, take a look at the following tutorial on Op
 
 - [p5.easycam.js](https://freshfork.github.io/p5.EasyCam/p5.easycam.js)
 - [p5.easycam.min.js](https://freshfork.github.io/p5.EasyCam/p5.easycam.min.js)
-- [CDN: p5.easycam.min.js](https://cdn.jsdelivr.net/gh/freshfork/p5.EasyCam@1.0.10/p5.easycam.min.js)
+- [CDN: p5.easycam.min.js](https://cdn.jsdelivr.net/gh/freshfork/p5.EasyCam@1.2.0/p5.easycam.min.js)
 - [All Releases](https://github.com/freshfork/p5.EasyCam/releases)
 
 
@@ -33,10 +33,11 @@ To get started quickly with EasyCam, take a look at the following tutorial on Op
 - [QuickStart_Ortho](https://freshfork.github.io/p5.EasyCam/examples/QuickStart_Ortho/)
 - [SplitView](https://freshfork.github.io/p5.EasyCam/examples/SplitView/)
 - [MultiView](https://freshfork.github.io/p5.EasyCam/examples/MultiView/)
+- [MultiCanvas](https://freshfork.github.io/p5.EasyCam/examples/MultiCanvas/)
 
 #### Alternate first-person camera
 
-If you are seeking a simple first-person point-of-view camera library for p5.js, take a look at p5.RoverCam
+For a simple first-person point-of-view p5.js camera library, take a look at p5.RoverCam
 - [p5.RoverCam](https://github.com/freshfork/p5.RoverCam)
 
 
@@ -226,3 +227,5 @@ Example: [openprocessing](https://www.openprocessing.org/sketch/622115)
 ![PerPixelPhong](screenshots/PerPixelPhong.jpg)
 
 ![CameraStates](screenshots/CameraStates.jpg)
+
+![MultiCanvas](screenshots/MultiCanvas.png)

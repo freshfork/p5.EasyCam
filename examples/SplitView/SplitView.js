@@ -150,7 +150,7 @@ function displayScene(cam){
   if(cam.IDX == 1) {pg.clear(32);pg.background(32);}
  
   pg.ambientLight(100);
-  pg.pointLight(255, 255, 255, 0, 0, 0);
+  pg.pointLight(255, 250, 244, 0, 0, 0); // sunlight
   
   // objects
   randomSeed(2);
@@ -176,19 +176,19 @@ function displayScene(cam){
     pg.pop();
   }
   
-  pg.ambientMaterial(255, 220, 0);
+  pg.emissiveMaterial(255, 250, 244);
   pg.box(50, 50, 10);
   
   pg.push();
-  pg.rotateZ(sin(frameCount*0.015) * PI*1.5);
-  pg.translate(120, 0, 0);
+  pg.rotateZ(sin(frameCount*0.007) * PI*1.5);
+  pg.translate(130, 0, 0);
   pg.ambientMaterial(0,128,255);
   pg.sphere(15);
   pg.pop();
     
   pg.push();
-  pg.rotateX(sin(frameCount*0.02) * PI);
-  pg.translate(0, 150, 0);
+  pg.rotateX(sin(frameCount*0.01) * PI);
+  pg.translate(0, 160, 0);
   pg.ambientMaterial(128,255,0);
   pg.sphere(15);
   pg.pop();
@@ -198,8 +198,6 @@ function displayScene(cam){
 
 
 
-function mousePressed(){
-}
 
 
 
