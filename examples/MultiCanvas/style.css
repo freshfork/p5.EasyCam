@@ -1,11 +1,23 @@
+.unselectable{
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+#hud{
+  position: absolute;
+  margin: 10px;
+  color: rgb(160,160,160);
+}
 html, body {
   margin: 0;
   padding: 0;
 }
 canvas {
   display: block;
-  justify-self: center;
-  align-self: center;
+  /*justify-self: center;
+  align-self: center;*/
 }
 
 /* desktop */
@@ -17,12 +29,14 @@ body {
 }
 main {
   grid-area: 2 / 2 / 3 / 3;
-  background-color: #f0f0f0;
+  background-color: #444;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  padding: 20px;
+  padding: 0;
   border: 1px solid gray;
+  align-items: center;
+  justify-items: center;
 }
 
 /* tablet */

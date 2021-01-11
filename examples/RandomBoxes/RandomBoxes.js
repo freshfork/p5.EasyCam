@@ -18,9 +18,11 @@
  */
 
 
-// Update 20210106: Per Pixel Phong lighting is now built into p5js
-// The follow sketch has much of the original shader code commented out.
-// Earlier version introduction:
+// Update 20210110: Per Pixel Phong lighting is now built into p5js
+// The follow sketch has the original shader code commented out,
+// but remains here for reference.
+
+// This is the introduction to the previous version:
 //
 // This example shows how to render a scene using a custom shader for lighting.
 //
@@ -52,18 +54,19 @@ function setup () {
  
   // define initial state
   var state = {
-    distance : 282.316,
+    distance : 164.411,
     center   : [0, 0, 0],
-    rotation : [-0.548, -0.834, 0.066, -0.015],
+    rotation : [-0.285, -0.257, -0.619, 0.685],
   };
   
   console.log(Dw.EasyCam.INFO);
   
-  easycam = new Dw.EasyCam(this._renderer, state);
+  easycam = new Dw.EasyCam(this._renderer);
+  easycam.state_reset = state;   // state to use on reset (double-click/tap)
+  easycam.setState(state, 2000); // now animate to that state
   
   //var phong_vert = document.getElementById("phong.vert").textContent;
   //var phong_frag = document.getElementById("phong.frag").textContent;
-  
   //phongshader = new p5.Shader(this._renderer, phong_vert, phong_frag);
 }
 
@@ -84,76 +87,28 @@ function backupCameraMatrix(){
   m3_camera.inverseTranspose(m4_camera);
 }
 
+var matWhite = {
+  diff     : [1,1,1],
+  spec     : [1,1,1],
+  spec_exp : 400.0,
+};
+var ambientlight = {
+  col : [0.0002, 0.0004, 0.0006],
+};
+
+var directlights = [
+  {
+    dir : [-1,-1,-2],
+    col : [0.0010, 0.0005, 0.00025],
+  },
+];
 
 
 function draw () {
   
   // save current state of the modelview matrix
   backupCameraMatrix();
-
-
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  // MATERIALS
-  //
-  //////////////////////////////////////////////////////////////////////////////
-  
-  var matWhite = {
-    diff     : [1,1,1],
-    spec     : [1,1,1],
-    spec_exp : 400.0,
-  };
-  
-  var matDark = {
-    diff     : [0.1,0.15,0.2],
-    spec     : [1,1,1],
-    spec_exp : 400.0,
-  };
-  
-  var matRed = {
-    diff     : [1,0.05,0.01],
-    spec     : [1,0,0],
-    spec_exp : 400.0,
-  };
-  
-  var matBlue = {
-    diff     : [0.01,0.05,1],
-    spec     : [0,0,1],
-    spec_exp : 400.0,
-  };
-  
-  var matGreen = {
-    diff     : [0.05,1,0.01],
-    spec     : [0,1,0],
-    spec_exp : 400.0,
-  };
-  
-  var matYellow = {
-    diff     : [1,1,0.01],
-    spec     : [1,1,0],
-    spec_exp : 400.0,
-  };
-  
-  var materials = [ matWhite, matRed, matBlue, matGreen, matYellow ];
-  
-  
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  // LIGHTS
-  //
-  //////////////////////////////////////////////////////////////////////////////
-  
-  var ambientlight = {
-    col : [0.0002, 0.0004, 0.0006],
-  };
-  
-  var directlights = [
-    {
-      dir : [-1,-1,-2],
-      col : [0.0010, 0.0005, 0.00025],
-    },
-  ];
-  
+  //if(keyIsPressed)console.log(easycam.getState());
   var angle = frameCount * 0.03;
   var rad = 30;
   var px = cos(angle) * rad;
@@ -165,7 +120,6 @@ function draw () {
   
   
   var pz = sin(frameCount * 0.02);
-  
   var pointlights = [
     {
       pos : [px, py, 0, 1],
@@ -185,8 +139,7 @@ function draw () {
       col : [1, r, g],
       att : 80,
     },
-  ];
-  
+  ];  
   
   //////////////////////////////////////////////////////////////////////////////
   //
