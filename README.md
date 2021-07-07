@@ -90,9 +90,13 @@ Simple examples to play with:
 - [openprocessing](https://www.openprocessing.org/sketch/749740)
 - [vue.js integration](https://jsfiddle.net/intrinsica/7rt695bs/13/)
 
+### Acknowledgements
+
+Special thanks to [Jonathan Feinberg](https://github.com/jdf) and [Thomas Diewald](https://github.com/diwi). This repository is maintained by [James Dunn](https://jwilliamdunn.com) and future [contributors](https://guides.github.com/activities/hello-world).
+
 ### History
 
-This library is a derivative of the original PeasyCam Library by Jonathan Feinberg and combines new useful features with the great look and feel of the original version. This p5js library was started by Thomas Diewald in 2017. The code and examples have been updated to work with the release version of p5.js (v1.0.0) and will be maintained going forward.
+This library is a derivative of the original [PeasyCam Library](https://github.com/jdf/peasycam) by Jonathan Feinberg and combines new useful features with the great look and feel of the original version. This p5js library was started by Thomas Diewald in 2017. The code and examples have been updated to work with the release version of p5.js (v1.0.0) and will be maintained going forward.
 
 Processing/Java version of this project: https://github.com/diwi/peasycam/tree/PeasyCam3
 
