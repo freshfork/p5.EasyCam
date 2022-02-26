@@ -2,7 +2,7 @@
  * 
  * The p5.EasyCam library - Easy 3D CameraControl for p5.js and WEBGL.
  *
- *   Copyright 2018-2021 by p5.EasyCam authors
+ *   Copyright 2018-2022 by p5.EasyCam authors
  *
  *   Source: https://github.com/freshfork/p5.EasyCam
  *
@@ -225,6 +225,8 @@ function keyReleased(){
   if(key == '2') save_id = 2;
   if(key == '3') save_id = 3;
   if(key == '4') save_id = 4;
+  if(key == 's') document.getElementById('easycamhud').style.display ='block'; // display HUD
+  if(key == 'h') document.getElementById('easycamhud').style.display ='none'; // hide HUD
 }
 
 
