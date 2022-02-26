@@ -45,7 +45,7 @@ var easycam, save_id = 1;
 
 let inconsolata;
 function preload() {
-  inconsolata = loadFont('http://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf');
+  inconsolata = loadFont('https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf');
 }
 
 function setup() { 
