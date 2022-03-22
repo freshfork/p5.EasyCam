@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@types/p5": "^1.4.1",
+    "jsdoc": "^3.6.10",
+    "tsd-jsdoc": "^2.5.0"
+  }
+}
