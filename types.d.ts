@@ -161,30 +161,30 @@ declare class EasyCam {
     setDistanceMax(): void;
     /**
      * Sets the new camera distance.
-     * @param new - distance.
-     * @param animation - time in millis.
+     * @param distance - new distance.
+     * @param duration - animation time in millis.
      */
-    setDistance(new: double, animation: long): void;
+    setDistance(distance: double, duration: long): void;
     /**
      * @returns the current camera distance.
      */
     getDistance(): double;
     /**
      * Sets the new camera center.
-     * @param new - center.
-     * @param animation - time in millis.
+     * @param center - new center.
+     * @param duration - animation time in millis.
      */
-    setCenter(new: double[], animation: long): void;
+    setCenter(center: double[], duration: long): void;
     /**
      * @returns the current camera center.
      */
     getCenter(): double[];
     /**
      * Sets the new camera rotation (quaternion).
-     * @param new - rotation as quat[q0,q1,q2,q3].
-     * @param animation - time in millis.
+     * @param rotation - new rotation as quat[q0,q1,q2,q3].
+     * @param duration - animation time in millis.
      */
-    setRotation(new: double[], animation: long): void;
+    setRotation(rotation: double[], duration: long): void;
     /**
      * @returns the current camera rotation as quat[q0,q1,q2,q3].
      */
