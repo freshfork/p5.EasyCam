@@ -1634,14 +1634,17 @@ ext = (ext !== undefined) ? ext : {};
 
 /**
  * @memberof Dw
+ * @type {EasyCam}
  */
 ext.EasyCam = EasyCam;
 /**
  * @memberof Dw
+ * @type {DampedAction}
  */
 ext.DampedAction = DampedAction;
 /**
  * @memberof Dw
+ * @type {Interpolation}
  */
 ext.Interpolation = Interpolation;
 /**

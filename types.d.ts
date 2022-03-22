@@ -1,7 +1,7 @@
 declare namespace Dw {
-    var ext.EasyCam: any;
-    var ext.DampedAction: any;
-    var ext.Interpolation: any;
+    var ext.EasyCam: EasyCam;
+    var ext.DampedAction: DampedAction;
+    var ext.Interpolation: Interpolation;
     var ext.Rotation: any;
     var ext.Vec3: any;
     var ext.Scalar: any;
