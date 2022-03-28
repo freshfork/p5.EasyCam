@@ -90,6 +90,42 @@ Simple examples to play with:
 - [openprocessing](https://www.openprocessing.org/sketch/749740)
 - [vue.js integration](https://jsfiddle.net/intrinsica/7rt695bs/13/)
 
+### Node.js, npm, IntelliSense, and TypeScript
+
+The npm dependencies are located in the `package.json` file.
+
+If [node.js](https://nodejs.org/en/download) is installed then this command will download the dependencies for the project:
+```bash
+npm install
+```
+
+Once the dependencies are downloaded then the types can be generated with the command 
+```bash
+npm run generate-types
+```
+This will generate `types.d.ts` and give output in the terminal like the following if the command was successful
+```bash
+> generate-types
+> jsdoc -t node_modules/tsd-jsdoc/dist p5.easycam.js -d .
+
+[TSD-JSDoc] p5.easycam.js:33:6 Failed to find parent of doclet '<anonymous>~INFO' using memberof '<anonymous>', this is likely due to invalid JSDoc.
+[TSD-JSDoc] p5.easycam.js:1251:4 Failed to find parent of doclet '<anonymous>~Rotation' using memberof ...
+```
+
+(Note: The warnings produced by the command are due to missing comment documentation in `p5.easycam.js`. This will be repaired in a future PR.)
+
+Next, it may be necessary to include the following three lines to the top of a sketch file to refer to the generated type files.
+```js
+// @ts-check
+/// <reference path="./types.d.ts" />
+/// <reference path="./node_modules/@types/p5/global.d.ts" />
+```
+
+When operating correctly, Visual Studio Code's IntelliSense feature will display code-completion information. Below is contextual data shown for the `setViewport` method in p5.EasyCam:
+
+<img src = "https://user-images.githubusercontent.com/80722367/159953435-928b201e-2b69-48b6-9a25-2ea2f27a9f15.png">
+
+
 ### Acknowledgements
 
 Special thanks to [Jonathan Feinberg](https://github.com/jdf) and [Thomas Diewald](https://github.com/diwi). This repository is maintained by [James Dunn](https://jwilliamdunn.com) and future [contributors](https://guides.github.com/activities/hello-world).
