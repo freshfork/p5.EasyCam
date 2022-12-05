@@ -85,6 +85,11 @@ for( let i=0; i<6; i++ )
       
       p.fill( specs[i][0] );
       p.noStroke();
+      
+      // Handle the mouseup event outside of the canvas
+      document.documentElement.addEventListener('mouseup', function(e){
+        cams[i].cam.mouse.ismousedown=false
+      });
     };
 
     p.draw = () => {
