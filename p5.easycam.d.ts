@@ -1,4 +1,6 @@
-import p5 from 'p5';
+import p5 from "p5";
+type Vec3 = [number, number, number];
+type Vec4 = [number, number, number, number];
 /** @namespace  */
 export declare namespace Dw {
     /**
@@ -28,8 +30,8 @@ export declare namespace Dw {
             toString(): string;
         };
         cam: this;
-        LOOK: number[];
-        UP: number[];
+        LOOK: Vec3;
+        UP: Vec3;
         AXIS: {
             YAW: number;
             PITCH: number;
@@ -48,43 +50,39 @@ export declare namespace Dw {
         distance_max: number;
         state: {
             distance: number;
-            center: number[];
-            rotation: [number, number, number, number];
+            center: Vec3;
+            rotation: Vec4;
             copy: () => any;
         };
         state_reset: any;
         state_pushed: any;
-        viewport: [number, number, number, number];
-        offset: number[];
+        viewport: Vec4;
+        offset: [number, number];
         mouse: any;
         auto_update: boolean;
-        dampedPanX: any;
-        dampedZoom: any;
-        dampedPanY: any;
+        dampedPanX: DampedAction;
+        dampedZoom: DampedAction;
+        dampedPanY: DampedAction;
         pushed_uMVMatrix: any;
-        dampedRotX: any;
-        dampedRotY: any;
-        timedRot: any;
-        timedPan: any;
-        timedzoom: any;
-        renderer: undefined;
+        dampedRotX: DampedAction;
+        dampedRotY: DampedAction;
+        timedRot: Interpolation;
+        timedPan: Interpolation;
+        timedzoom: Interpolation;
+        renderer: any;
         graphics: {
             _pInst: any;
         } | undefined;
         P5: {
             pixelDensity: () => any;
-            mouseX: any;
-            mouseY: any;
+            mouseX: number;
+            mouseY: number;
             registerMethod: (arg0: string, arg1: () => void) => void;
         };
-        camEYE: any[];
-        camLAT: any[];
-        camRUP: any[];
-        dampedRotZ: {
-            addForce: (arg0: number) => void;
-            damping: any;
-            update: any;
-        };
+        camEYE: Vec3;
+        camLAT: Vec3;
+        camRUP: Vec3;
+        dampedRotZ: any;
         pushed_uPMatrix: any;
         pushed_rendererState: any;
         /**
@@ -98,9 +96,9 @@ export declare namespace Dw {
             height: number;
         }, args?: {
             distance: number;
-            center: number[];
-            rotation: [number, number, number, number];
-            viewport: [number, number, number, number];
+            center: Vec3;
+            rotation: Vec4;
+            viewport: Vec4;
             offset: [number, number];
         });
         /**
@@ -160,9 +158,9 @@ export declare namespace Dw {
             camera: (arg0: any, arg1: any, arg2: any, arg3: any, arg4: any, arg5: any, arg6: any, arg7: any, arg8: any) => void;
         }): void;
         /** */
-        setViewport(viewport: [number, number, number, number]): void;
+        setViewport(viewport: Vec4): void;
         /** @returns {[number, number, number,number]} the current viewport-def, as [x,y,w,h] */
-        getViewport(): [number, number, number, number];
+        getViewport(): Vec4;
         /** implemented zoom-cb for mouswheel handler.*/
         mouseWheelZoom(): void;
         /** implemented zoom-cb for mousedrag/touch handler.*/
@@ -192,13 +190,13 @@ export declare namespace Dw {
         /** Applies a change to the current zRotation.  */
         rotateZ(rz: number): void;
         /** Applies a change to the current rotation, using the given axis/angle.  */
-        rotate(axis: number[], angle?: number): void;
+        rotate(axis: Vec3, angle?: number): void;
         /** Sets the new camera-distance, interpolated (t) between given A and B. */
         setInterpolatedDistance(valA: number, valB: number, t: number): void;
         /** Sets the new camera-center, interpolated (t) between given A and B. */
-        setInterpolatedCenter(valA: number[], valB: number[], t: number): void;
+        setInterpolatedCenter(valA: Vec3, valB: Vec3, t: number): void;
         /** Sets the new camera-rotation, interpolated (t) between given A and B. */
-        setInterpolatedRotation(valA: number[], valB: number[], t: number): void;
+        setInterpolatedRotation(valA: Vec4, valB: Vec4, t: number): void;
         /** Sets the minimum camera distance. */
         setDistanceMin(distance_min: number): void;
         /** Sets the maximum camera distance. */
@@ -215,30 +213,26 @@ export declare namespace Dw {
         /**
          * Sets the new camera center.
          *
-         * @param {double[]} center new center.
-         * @param {long} duration animation time in millis.
          */
-        setCenter(center: number[], duration: number): void;
+        setCenter(center: Vec3, duration: number): void;
         /** @returns {double[]} the current camera center. */
-        getCenter(...args: any[]): number[];
+        getCenter(...args: any[][]): Vec3;
         /**
          * Sets the new camera rotation (quaternion).
          *
-         * @param {double[]} rotation new rotation as quat[q0,q1,q2,q3].
-         * @param {long} duration animation time in millis.
          */
-        setRotation(rotation: number[], duration: number): void;
+        setRotation(rotation: Vec4, duration: number): void;
         /** @returns {double[]} the current camera rotation as quat[q0,q1,q2,q3]. */
-        getRotation(): [number, number, number, number];
+        getRotation(): Vec4;
         /** @returns {double[]} the current camera position, aka. the eye position. */
-        getPosition(dst: number[]): number[];
+        getPosition(dst: Vec3): Vec3;
         /** @returns {double[]} the current camera up vector. */
-        getUpVector(dst: number[]): number[];
+        getUpVector(dst: Vec3): Vec3;
         /** @returns {Object} a copy of the camera state {distance,center,rotation} */
         getState(): {
             distance: number;
-            center: number[];
-            rotation: [number, number, number, number];
+            center: Vec3;
+            rotation: Vec4;
             copy: () => any;
         };
         /**
@@ -246,21 +240,21 @@ export declare namespace Dw {
          */
         setState(other: {
             distance: number;
-            center: number[];
-            rotation: number[];
+            center: Vec3;
+            rotation: Vec4;
         }, duration: number): void;
         pushState(): {
             distance: number;
-            center: number[];
-            rotation: [number, number, number, number];
+            center: Vec3;
+            rotation: Vec4;
             copy: () => any;
         };
         popState(duration: number): void;
         /** sets the current state as reset-state. */
         pushResetState(): {
             distance: number;
-            center: number[];
-            rotation: [number, number, number, number];
+            center: Vec3;
+            rotation: Vec4;
             copy: () => any;
         };
         /** resets the camera, by applying the reset-state. */
@@ -406,11 +400,7 @@ export declare namespace Dw {
          *  If the given interpolation-duration is 0, then
          * {@link interpolation-callback} is called immediately.
          */
-        start(valA: any, valB: any, duration: undefined, actions: {
-            [x: string]: {
-                stop: () => void;
-            };
-        }): void;
+        start(valA: any, valB: any, duration?: number, actions?: DampedAction[]): void;
         /** updates the interpolation and calls {@link interpolation-callback}.*/
         update(): void;
         interpolate(t: number): void;
@@ -425,37 +415,37 @@ export declare namespace Dw {
      * @namespace
      */
     namespace Rotation {
-        function assert(dst?: [number, number, number, number]): [number, number, number, number];
-        /** @returns {Number[]} an identity rotation [1,0,0,0] */
-        function identity(): [number, number, number, number];
+        function assert(dst?: Vec4): Vec4;
+        /** returns an identity rotation [1,0,0,0] */
+        function identity(): Vec4;
         /**
          * Applies the rotation to a vector and returns dst or a new vector.
          *
-         * @param {Number[]} rot - Rotation (Quaternion)
-         * @param {Number[]} vec - vector to be rotated by rot
-         * @param {Number[]} dst - resulting vector
-         * @returns {Number[]} dst- resulting vector
+         * @param rot - Rotation (Quaternion)
+         * @param vec - vector to be rotated by rot
+         * @param dst - resulting vector
+         * @returns dst- resulting vector
          */
-        function applyToVec3(rot: [number, number, number, number], vec: number[], dst?: number[]): number[];
+        function applyToVec3(rot: Vec4, vec: Vec3, dst?: Vec3): Vec3;
         /**
          * Applies the rotation to another rotation and returns dst or a new rotation.
          *
-         * @param {Number[]} rotA - RotationA (Quaternion)
-         * @param {Number[]} rotB - RotationB (Quaternion)
-         * @param {Number[]} dst - resulting rotation
-         * @returns {Number[]} dst - resulting rotation
+         * @param  rotA - RotationA (Quaternion)
+         * @param  rotB - RotationB (Quaternion)
+         * @param  dst - resulting rotation
+         * @returns  dst - resulting rotation
          */
-        function applyToRotation(rotA: [number, number, number, number], rotB: [number, number, number, number], dst: [number, number, number, number]): number[];
+        function applyToRotation(rotA: Vec4, rotB: Vec4, dst: Vec4): Vec4;
         /**
          * Interpolates a rotation.
          *
-         * @param {Number[]} rotA - RotationA (Quaternion)
-         * @param {Number[]} rotB - RotationB (Quaternion)
-         * @param {Number  } t - interpolation parameter
-         * @param {Number[]} dst - resulting rotation
-         * @returns {Number[]} dst - resulting rotation
+         * @param  rotA - RotationA (Quaternion)
+         * @param  rotB - RotationB (Quaternion)
+         * @param  t - interpolation parameter
+         * @param  dst - resulting rotation
+         * @returns  dst - resulting rotation
          */
-        function slerp(rotA: [number, number, number, number], rotB: [number, number, number, number], t: number, dst: [number, number, number, number]): number[];
+        function slerp(rotA: Vec4, rotB: Vec4, t: number, dst: Vec4): Vec4;
         /**
          * Creates/Initiates a new Rotation
          *
@@ -482,16 +472,16 @@ export declare namespace Dw {
          *
          *
          * @param {Object} def - Definition, for creating the new Rotation
-         * @param {Number[]} dst - resulting rotation
-         * @returns {Number[]} dst - resulting rotation
+         * @param dst - resulting rotation
+         * @returns dst - resulting rotation
          */
         function create(def: {
-            axis?: number[];
+            axis?: Vec3;
             angle?: number;
-            rotation?: number[];
+            rotation?: Vec4;
             normalize?: boolean;
-            angles_xyz?: [number, number, number];
-        }, dst?: [number, number, number, number]): number[];
+            angles_xyz?: Vec3;
+        }, dst?: Vec4): Vec4;
     }
     /**
      * Scalar as a simple number.
@@ -520,24 +510,25 @@ export declare namespace Dw {
      * @namespace
      */
     namespace Vec3 {
-        function assert(dst?: number[]): number[];
+        function assert(dst?: Vec3): Vec3;
         function isScalar(arg: any): boolean;
         /** addition: <pre> dst = a + b </pre>  */
-        function add(a: number[], b: number[] | number, dst: number[]): number[];
+        function add(a: Vec3, b: Vec3 | number, dst: Vec3): Vec3;
         /** componentwise multiplication: <pre> dst = a * b </pre>  */
-        function mult(a: number[], b: number[] | number, dst: number[]): number[];
+        function mult(a: Vec3, b: Vec3 | number, dst: Vec3): Vec3;
         /** squared length  */
-        function magSq(a: number[]): number;
+        function magSq(a: Vec3): number;
         /** length  */
-        function mag(a: number[]): number;
+        function mag(a: Vec3): number;
         /** dot-product  */
-        function dot(a: number[], b: number[]): number;
+        function dot(a: Vec3, b: Vec3): number;
         /** cross-product  */
-        function cross(a: number[], b: number[], dst: number[]): number[];
+        function cross(a: Vec3, b: Vec3, dst?: Vec3): Vec3;
         /** angle  */
-        function angle(v1: any, v2: any): number;
+        function angle(v1: Vec3, v2: Vec3): number;
         /** linear interpolation: <pre> dst = a * (1 - t) + b * t </pre> */
-        function mix(a: any[], b: any[], t: number, dst?: number[]): number[];
+        function mix(a: Vec3, b: Vec3, t: number, dst?: Vec3): Vec3;
     }
 }
 export declare function createEasyCam(): Dw.EasyCam;
+export {};
