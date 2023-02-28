@@ -2,7 +2,7 @@
  *
  * The p5.EasyCam library - Easy 3D CameraControl for p5.js and WEBGL.
  *
- *   Copyright © 2017-2021 by p5.EasyCam authors
+ *   Copyright © 2017-2023 by p5.EasyCam authors
  *
  *   Source: https://github.com/freshfork/p5.EasyCam
  *
@@ -33,7 +33,7 @@ var Dw = (function(ext) {
 const INFO =
 {
   /** name    */ LIBRARY : "p5.EasyCam",
-  /** version */ VERSION : "1.2.0",
+  /** version */ VERSION : "1.2.2",
   /** author  */ AUTHOR  : "p5.EasyCam authors",
   /** source  */ SOURCE  : "https://github.com/freshfork/p5.EasyCam",
 
@@ -1059,7 +1059,9 @@ class EasyCam {
     this.pushed_uPMatrix  = renderer.uPMatrix .copy();
 
     // 3) set new modelview (identity)
-    renderer.resetMatrix();
+    //renderer.resetMatrix();  //behavior changed in p5 v1.6
+    renderer.uMVMatrix = p5.Matrix.identity();
+    
     // 4) set new projection (ortho)
     renderer._curCamera.ortho(0, w, -h, 0, -d, +d);
     // renderer.ortho();
