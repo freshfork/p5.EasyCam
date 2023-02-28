@@ -2,7 +2,7 @@
  * 
  * The p5.EasyCam library - Easy 3D CameraControl for p5.js and WEBGL.
  *
- *   Copyright 2018-2020 by p5.EasyCam authors
+ *   Copyright 2018-2023 by p5.EasyCam authors
  *
  *   Source: https://github.com/freshfork/p5.EasyCam
  *
@@ -21,6 +21,7 @@
 // SplitView setup
 //
 // Two cameras, each one owns its own rendertarget.
+// 2023.0226 tweaked to work with p5js v1.6
 //
 //
  
@@ -149,7 +150,7 @@ function displayScene(cam){
   if(cam.IDX == 0) {pg.clear(220);pg.background(220);}
   if(cam.IDX == 1) {pg.clear(32);pg.background(32);}
  
-  pg.ambientLight(100);
+  pg.ambientLight(255, 250, 244);
   pg.pointLight(255, 250, 244, 0, 0, 0); // sunlight
   
   // objects
@@ -176,12 +177,15 @@ function displayScene(cam){
     pg.pop();
   }
   
-  pg.emissiveMaterial(255, 250, 244);
+  pg.push();
+  pg.emissiveMaterial(255, 250, 127);
   pg.box(50, 50, 10);
+  pg.pop();
   
   pg.push();
   pg.rotateZ(sin(frameCount*0.007) * PI*1.5);
   pg.translate(130, 0, 0);
+  //pg.fill(0,128,255);
   pg.ambientMaterial(0,128,255);
   pg.sphere(15);
   pg.pop();
@@ -189,6 +193,7 @@ function displayScene(cam){
   pg.push();
   pg.rotateX(sin(frameCount*0.01) * PI);
   pg.translate(0, 160, 0);
+  //pg.fill(128,255,0);
   pg.ambientMaterial(128,255,0);
   pg.sphere(15);
   pg.pop();

@@ -44,8 +44,9 @@ document.addEventListener( "keydown", function (event){
 
 
 // Common scene elements
-function renderScene( p, b ){
+function renderScene( p, b, f ){
   p.background( b );
+  p.ambientMaterial( f );
   p.lights();
   p.pointLight( 255,255,255, 0,500,-1000 );
   p.box( 100 );
@@ -94,6 +95,6 @@ for( let i=0; i<6; i++ )
 
     p.draw = () => {
       if( cams[i].mouse.insideViewport( p.mouseX, p.mouseY ) ) focused = cams[i];
-      renderScene( p, specs[i][1] );
+      renderScene( p, specs[i][1], specs[i][0] );
     };
   });
