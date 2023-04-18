@@ -99,25 +99,19 @@ If [node.js](https://nodejs.org/en/download) is installed then this command will
 npm install
 ```
 
-Once the dependencies are downloaded then the types can be generated with the command 
-```bash
-npm run generate-types
-```
-This will generate `types.d.ts` and give output in the terminal like the following if the command was successful
-```bash
-> generate-types
-> jsdoc -t node_modules/tsd-jsdoc/dist p5.easycam.js -d .
+Once the dependencies are downloaded then the types can be generated with the command
 
-[TSD-JSDoc] p5.easycam.js:33:6 Failed to find parent of doclet '<anonymous>~INFO' using memberof '<anonymous>', this is likely due to invalid JSDoc.
-[TSD-JSDoc] p5.easycam.js:1251:4 Failed to find parent of doclet '<anonymous>~Rotation' using memberof ...
+```bash
+npm run build
 ```
 
-(Note: The warnings produced by the command are due to missing comment documentation in `p5.easycam.js`. This will be repaired in a future PR.)
+This will generate `p5.easycam.d.ts`.
 
 Next, it may be necessary to include the following three lines to the top of a sketch file to refer to the generated type files.
+
 ```js
 // @ts-check
-/// <reference path="./types.d.ts" />
+/// <reference path="./p5.easycam.d.ts" />
 /// <reference path="./node_modules/@types/p5/global.d.ts" />
 ```
 

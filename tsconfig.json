@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "allowJs": true,
+        "lib": [
+            "ES6",
+            "DOM"
+        ],
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "outDir": "./",
+    },
+    "include": ["p5.easycam.ts"],
+    "exclude": ["./examples"]
+}
