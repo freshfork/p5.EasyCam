@@ -30,6 +30,7 @@ To get started quickly with EasyCam, take a look at the following tutorial on Op
 - [CameraStates_Basic](https://freshfork.github.io/p5.EasyCam/examples/CameraStates_Basic/)
 - [HeadUpDisplay](https://freshfork.github.io/p5.EasyCam/examples/HeadUpDisplay/)
 - [QuickStart](https://freshfork.github.io/p5.EasyCam/examples/QuickStart/)
+- [QuickStart_InstanceMode](https://freshfork.github.io/p5.EasyCam/examples/QuickStart_InstanceMode/)
 - [QuickStart_Ortho](https://freshfork.github.io/p5.EasyCam/examples/QuickStart_Ortho/)
 - [SplitView](https://freshfork.github.io/p5.EasyCam/examples/SplitView/)
 - [MultiView](https://freshfork.github.io/p5.EasyCam/examples/MultiView/)
