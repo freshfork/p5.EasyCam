@@ -1,15 +1,36 @@
 {
+  "name": "p5.easycam",
+  "version": "1.2.2",
+  "description": "A p5.js library for easy 3D camera control.",
+  "main": "p5.easycam.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "lint": "eslint",
+    "test": "echo \"TBD\" && exit 1",
+    "generate-types": "jsdoc -t node_modules/tsd-jsdoc/dist p5.easycam.js -d .",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/freshfork/p5.EasyCam"
+  },
+  "author": "p5.EasyCam authors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/freshfork/p5.EasyCam/issues"
+  },
+  "homepage": "https://freshfork.github.io/p5.EasyCam",
+  "keywords": ["p5.js", "camera", "webgl", "3d"],
   "dependencies": {
     "jsdoc": "^3.6.10",
     "tsd-jsdoc": "^2.5.0"
   },
-  "scripts": {
-    "generate-types": "jsdoc -t node_modules/tsd-jsdoc/dist p5.easycam.js -d .",
-    "build": "tsc"
-  },
   "devDependencies": {
     "@types/p5": "^1.4.3",
-    "p5": "^1.5.0",
+    "eslint": "^8.6.0",
+    "eslint-config-google": "^0.14.0",
     "typescript": "^4.9.4"
   }
 }
