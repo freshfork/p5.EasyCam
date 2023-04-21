@@ -1684,6 +1684,10 @@ export function createEasyCam(): Dw.EasyCam {
   return;
 }
 
+export function setContext(context: any): void {
+  return;
+}
+
 /**
  * @submodule Camera
  * @for p5

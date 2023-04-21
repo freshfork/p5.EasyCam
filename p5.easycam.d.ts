@@ -531,4 +531,5 @@ export declare namespace Dw {
     }
 }
 export declare function createEasyCam(): Dw.EasyCam;
+export declare function setContext(context: p5): void;
 export {};
