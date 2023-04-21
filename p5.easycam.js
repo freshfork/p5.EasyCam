@@ -15,6 +15,11 @@
  * and combines new useful features with the great look and feel of its parent.
  *
  */
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+      typeof define === 'function' && define.amd ? define(factory) :
+          (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Dw = factory());
+}(this, (function () {
 
 
 
@@ -1695,3 +1700,4 @@ if(p5){
     return new Dw.EasyCam(renderer, args);
   }
 }
+})));
