@@ -35,6 +35,7 @@ To get started quickly with EasyCam, take a look at the following tutorial on Op
 - [SplitView](https://freshfork.github.io/p5.EasyCam/examples/SplitView/)
 - [MultiView](https://freshfork.github.io/p5.EasyCam/examples/MultiView/)
 - [MultiCanvas](https://freshfork.github.io/p5.EasyCam/examples/MultiCanvas/)
+- [Swap mouse/touch handlers](https://openprocessing.org/sketch/1938173)
 
 #### Alternate first-person camera
 
