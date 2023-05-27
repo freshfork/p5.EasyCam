@@ -1,55 +1,36 @@
-:root {
-    /*--border_radius:  0px;*/
-    /*--colorA: rgba(210, 110, 0, 0.9);*/
-    /*--colorA_06: rgba(210, 110, 0, 0.5);*/
-    /*--col_ORANGE: rgb(255,130,0);*/
-    /*--box-shadow: 5px 5px 5px rgba(80, 35, 0, 0.5);*/
-    /*--box-shadow-button: 0px 0px 5px rgba(0, 0, 0, 1);*/
+.gwrap {
+	display: grid;
+	grid-template-columns: 0.1fr 1fr;
+  grid-template-rows: repeat(8, auto);
+	grid-auto-flow: column;
+}
+.unselectable { user-select: none; }
+.selectable-text { user-select: text; }
+
+* {
+	margin: 0px;
+	padding: 0px;
 }
 
-.unselectable{
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+html {
+	width:100%;
+	height:100%;
+	overflow: hidden;
 }
 
-.selectable-text{
-    -moz-user-select: text;
-    -webkit-user-select: text;
-    -ms-user-select: text;
-    -o-user-select: text;
-    user-select: text;
+body {
+	width:100%;
+	height:100%;
+	background-color: rgba(0,0,0,1);
+	font-family: FontAwesome, Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	letter-spacing: 1px;
+	font-size: small;
+	color: rgb(200, 200, 200);
 }
-
-
-*{
-    margin: 0px;
-    padding: 0px;
-}
-
-
-
-html{
-    width:100%;
-    height:100%;
-    overflow: hidden;
-}
-
-body{
-    width:100%;
-    height:100%;
-    background-color: rgba(0,0,0,1);
-    font-family: FontAwesome, Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 400;
-    letter-spacing: 1px;
-    font-size: small;
-    color: rgb(200, 200, 200);
-}
-
+h2 { font-size: 1.0em; }
 
 .hud {
   position: fixed;
@@ -57,7 +38,7 @@ body{
   left: 10px;
 	background-color: rgba(0,0,0,0.9);
 	color: #FFFFFF;
-	font-size: 10pt;
+	font-size: 11px;
 	padding: 10px;
   
   border: 1px solid #000;
@@ -65,37 +46,6 @@ body{
   box-shadow: 0px 0px 10px 1px #000;
 }
 
-ul {
-  list-style-type: none;
-  /* overflow: hidden; */
-  /* white-space: nowrap; */
-  padding: 10px;
-  color: 0xFFFFFF;
-}
-
-ul.two{
-    display: inline-block;
-     vertical-align:top;
-  /* float:left; */
-}
-
-li[gap]{
-  margin-top: 10px;
-}
-
-ul .green{
-  color: rgb(100,200,0);
-}
-ul .orange{
-  color: rgb(255,128,0);
-}
-
-
-
-
-
-
-
-
-
-
+div[gap] { margin-top: 10px; }
+div.green { color: rgb(100,200,0); }
+div.orange { color: rgb(255,128,0); }

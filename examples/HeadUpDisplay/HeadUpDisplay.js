@@ -32,19 +32,14 @@
 //
   
   
-var easycam;
+var easycam, HUDgrid;
 
 function setup() {  
-
   pixelDensity(2);
-  
   createCanvas(windowWidth, windowHeight, WEBGL);
   setAttributes('antialias', true);
-  
   console.log(Dw.EasyCam.INFO);
-  
   easycam = new Dw.EasyCam(this._renderer, {distance : 300}); 
-
   initHUD();
 } 
 
@@ -55,7 +50,7 @@ function windowResized() {
 }
 
 
-function draw(){
+function draw() {
  
   // projection
   perspective(60 * PI/180, width/height, 1, 5000);
@@ -103,7 +98,7 @@ function draw(){
 }
 
 // utility function to get some GL/GLSL/WEBGL information
-function getGLInfo(){
+function getGLInfo() {
   
   var gl = this._renderer.GL;
   
@@ -123,48 +118,46 @@ function getGLInfo(){
   return info;
 }
 
-
-
-
-function initHUD(){
-  // init hud
-  var hleft = select('#hud-left');
-  var hright = select('#hud-right');
-
-  createElement('li', "gpu_renderer").parent(hleft);
-  createElement('li', "wgl_version" ).parent(hleft);
-  createElement('li', "wgl_glsl"    ).parent(hleft);
-  createElement('li', "Framerate:"  ).parent(hleft).attribute('gap', '');
-  createElement('li', "Viewport:"   ).parent(hleft);
-  createElement('li', "Distance:"   ).parent(hleft).attribute('gap', '');
-  createElement('li', "Center:"     ).parent(hleft);
-  createElement('li', "Rotation:"   ).parent(hleft);
-  
-  var info = getGLInfo();
-  createElement('li', info.gpu_renderer || '.').parent(hright).class('green'); 
-  createElement('li', info.wgl_version  || '.').parent(hright).class('green'); 
-  createElement('li', info.wgl_glsl     || '.').parent(hright).class('green'); 
-  createElement('li', '.'                     ).parent(hright).class('').attribute('gap', '');
-  createElement('li', '.'                     ).parent(hright).class(''); 
-  createElement('li', '.'                     ).parent(hright).class('orange').attribute('gap', '');
-  createElement('li', '.'                     ).parent(hright).class('orange'); 
-  createElement('li', '.'                     ).parent(hright).class('orange'); 
+function setGridCell(c,r, d) {
+  var gridItems = Array.from(HUDgrid.elt.querySelectorAll('*'));
+  gridItems[(c-1)*8 + (r-1)].innerHTML = d;
 }
 
+function initHUD() {
+  // init hud
+  HUDgrid = select('.gwrap');
 
+  createElement('div', "gpu_renderer:&nbsp;").parent(HUDgrid);
+  createElement('div', "wgl_version:" ).parent(HUDgrid);
+  createElement('div', "wgl_glsl:"    ).parent(HUDgrid);
+  createElement('div', "Framerate:"  ).parent(HUDgrid).attribute('gap', '');
+  createElement('div', "Viewport:"   ).parent(HUDgrid);
+  createElement('div', "Distance:"   ).parent(HUDgrid).attribute('gap', '');
+  createElement('div', "Center:"     ).parent(HUDgrid);
+  createElement('div', "Rotation:"   ).parent(HUDgrid);
+  
+  var info = getGLInfo();
+  createElement('div', info.gpu_renderer || '.').parent(HUDgrid).class('green'); 
+  createElement('div', info.wgl_version  || '.').parent(HUDgrid).class('green'); 
+  createElement('div', info.wgl_glsl     || '.').parent(HUDgrid).class('green'); 
+  createElement('div', '.'                     ).parent(HUDgrid).class('').attribute('gap', '');
+  createElement('div', '.'                     ).parent(HUDgrid).class(''); 
+  createElement('div', '.'                     ).parent(HUDgrid).class('orange').attribute('gap', '');
+  createElement('div', '.'                     ).parent(HUDgrid).class('orange'); 
+  createElement('div', '.'                     ).parent(HUDgrid).class('orange'); 
+}
 
-function displayHUD(){
+function displayHUD() {
   easycam.beginHUD();
   
   var state = easycam.getState();
   
   // update list
-  var ul = select('#hud-right');
-  ul.elt.children[3].innerHTML = nfs(frameRate()          , 1, 2);
-  ul.elt.children[4].innerHTML = nfs(easycam.getViewport(), 1, 0);
-  ul.elt.children[5].innerHTML = nfs(state.distance       , 1, 2);
-  ul.elt.children[6].innerHTML = nfs(state.center         , 1, 2);
-  ul.elt.children[7].innerHTML = nfs(state.rotation       , 1, 3);
+  setGridCell(2,4, nfs(frameRate(), 1, 1));
+  setGridCell(2,5, nfs(easycam.getViewport(), 1));
+  setGridCell(2,6, nfs(state.distance, 1, 2));
+  setGridCell(2,7, nfs(state.center, 1, 2));
+  setGridCell(2,8, nfs(state.rotation, 1, 3));
 
   // draw screen-aligned rectangles
   var ny = 10; 
@@ -183,11 +176,3 @@ function displayHUD(){
 
   easycam.endHUD();
 }
-
-
-
-
-
-
-
-
