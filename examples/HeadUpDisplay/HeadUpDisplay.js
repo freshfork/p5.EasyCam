@@ -41,6 +41,11 @@ function setup() {
   console.log(Dw.EasyCam.INFO);
   easycam = new Dw.EasyCam(this._renderer, {distance : 300}); 
   initHUD();
+  
+  // Handle the mouseup event outside of the canvas
+  document.documentElement.addEventListener('mouseup', function(e){
+    easycam.cam.mouse.ismousedown=false
+  });
 } 
 
 
@@ -60,9 +65,9 @@ function draw() {
   
   // gizmo
   strokeWeight(1);
-  stroke(255, 32,  0); line(0,0,0,100,0,0);
-  stroke( 32,255, 32); line(0,0,0,0,100,0);
-  stroke(  0, 32,255); line(0,0,0,0,0,100);
+  stroke(255, 32,  0); line(0,0,0, 100,0,0);
+  stroke( 32,255, 32); line(0,0,0, 0,100,0);
+  stroke(  0, 32,255); line(0,0,0, 0,0,100);
   
   // objects
   strokeWeight(0.5);
