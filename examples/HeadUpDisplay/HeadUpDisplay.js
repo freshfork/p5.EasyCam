@@ -157,12 +157,15 @@ function displayHUD() {
   
   var state = easycam.getState();
   
-  // update list
-  setGridCell(2,4, nfs(frameRate(), 1, 1));
-  setGridCell(2,5, nfs(easycam.getViewport(), 1));
-  setGridCell(2,6, nfs(state.distance, 1, 2));
-  setGridCell(2,7, nfs(state.center, 1, 2));
-  setGridCell(2,8, nfs(state.rotation, 1, 3));
+  // update data list
+  if(frameCount%60==0){
+    let state = easycam.getState();
+    setGridCell(2,4, nfs(frameRate(), 1, 1));
+    setGridCell(2,5, nfs(easycam.getViewport(), 1));
+    setGridCell(2,6, nfs(state.distance, 1, 2));
+    setGridCell(2,7, nfs(state.center, 1, 2));
+    setGridCell(2,8, nfs(state.rotation, 1, 3));
+  }
 
   // draw screen-aligned rectangles
   var ny = 10; 
