@@ -15,17 +15,47 @@
  * and combines new useful features with the great look and feel of its parent.
  *
  */
-
-
-
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+      typeof define === 'function' && define.amd ? define(factory) :
+          (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Dw = factory());
+}(this, (function () {
 'use strict';
 
-
-
-/** @namespace  */
+/** @namespace */
 var Dw = (function(ext) {
 
+/** The p5 variable is used to reference the current p5js runtime context. See setContext() to change this. */
+var p5 = (typeof window !== 'undefined' && window.p5) ? window.p5 : null;
 
+/**
+ * Register the EasyCam library with p5js, by adding a createEasyCam() function to its prototype.
+ *
+ * p5 is normally available on the global window. But if it's running in instance mode,
+ * or has been imported as a module with an alias, it could have a different name.
+ * This function allows the p5 runtime identifier to be overridden when necessary.
+ */
+const setContext = function(context) {
+    p5 = context;
+    p5.prototype.createEasyCam = createEasyCam;
+};
+
+/**
+ * p5.EasyCam creator function.
+ * Arguments are optional, and equal to the default EasyCam constructor.
+ * @return {EasyCam} a new EasyCam
+ */
+const createEasyCam = function(/* p5.RendererGL, {state} */) {
+  var renderer = this._renderer;
+  var args     = arguments[0];
+
+  if(arguments[0] instanceof p5.RendererGL) {
+    renderer = arguments[0];
+    args     = arguments[1]; // could still be undefined, which is fine
+  }
+
+  return new Dw.EasyCam(renderer, args);
+}
 
 /**
  * EasyCam Library Info
@@ -1061,7 +1091,7 @@ class EasyCam {
     // 3) set new modelview (identity)
     //renderer.resetMatrix();  //behavior changed in p5 v1.6
     renderer.uMVMatrix = p5.Matrix.identity();
-    
+
     // 4) set new projection (ortho)
     renderer._curCamera.ortho(0, w, -h, 0, -d, +d);
     // renderer.ortho();
@@ -1634,6 +1664,10 @@ Object.freeze(INFO); // and constant
 
 ext = (ext !== undefined) ? ext : {};
 
+/** Make the initializers available to the outside world. */
+ext.setContext = setContext;
+ext.createEasyCam = createEasyCam;
+
 /**
  * @memberof Dw
  * @type {EasyCam}
@@ -1667,31 +1701,11 @@ return ext;
 
 })(Dw);
 
-
-
-/**
- * @submodule Camera
- * @for p5
- */
-
-if(p5){
-
-
-  /**
-   * p5.EasyCam creator function.
-   * Arguments are optional, and equal to the default EasyCam constructor.
-   * @return {EasyCam} a new EasyCam
-   */
-  p5.prototype.createEasyCam = function(/* p5.RendererGL, {state} */){
-
-    var renderer = this._renderer;
-    var args     = arguments[0];
-
-    if(arguments[0] instanceof p5.RendererGL){
-      renderer = arguments[0];
-      args     = arguments[1]; // could still be undefined, which is fine
-    }
-
-    return new Dw.EasyCam(renderer, args);
+  /** Automatically register the EasyCam creator function with p5, assuming p5 is defined in the global namespace. */
+  if (typeof window !== 'undefined' && window.p5) {
+      window.Dw = Dw;
+      window.Dw.setContext(window.p5);
   }
-}
+
+  return Dw;
+})));
