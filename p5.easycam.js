@@ -2,7 +2,7 @@
  *
  * The p5.EasyCam library - Easy 3D CameraControl for p5.js and WEBGL.
  *
- *   Copyright © 2017-2023 by p5.EasyCam authors
+ *   Copyright © 2017-2024 by p5.EasyCam authors
  *
  *   Source: https://github.com/freshfork/p5.EasyCam
  *
@@ -33,7 +33,7 @@ var Dw = (function(ext) {
 const INFO =
 {
   /** name    */ LIBRARY : "p5.EasyCam",
-  /** version */ VERSION : "1.2.2",
+  /** version */ VERSION : "1.2.3",
   /** author  */ AUTHOR  : "p5.EasyCam authors",
   /** source  */ SOURCE  : "https://github.com/freshfork/p5.EasyCam",
 
@@ -297,10 +297,12 @@ class EasyCam {
       },
 
       wheel : function(event){
-        var x = event.x;
-        var y = event.y;
-        var mouse = cam.mouse;
-        if(mouse.insideViewport(x, y)){
+        // Account for canvas shift:
+        var offX = cam.offset[0] - window.scrollX,
+            offY = cam.offset[1] - window.scrollY,
+            mouse = cam.mouse;
+
+        if(mouse.insideViewport(event.x - offX, event.y - offY)){
           mouse.mwheel = event.deltaY * 0.01;
           if(mouse.mouseWheelAction) mouse.mouseWheelAction();
         }
@@ -1058,15 +1060,23 @@ class EasyCam {
     this.pushed_uMVMatrix = renderer.uMVMatrix.copy();
     this.pushed_uPMatrix  = renderer.uPMatrix .copy();
 
-    // 3) set new modelview (identity)
-    //renderer.resetMatrix();  //behavior changed in p5 v1.6
-    renderer.uMVMatrix = p5.Matrix.identity();
-    
+    // 3) set new modelview (identity) [easycam v1.2.3 should support all versions of p5.js]
+    const VERSION = (window.VERSION !== undefined) ? window.VERSION : '1.4.0';
+    const subs = VERSION.split(".");
+    const ver = subs[0], subVer = subs[1];
+    if(VERSION && ver>=1 && subVer>=10) {
+      //behavior change [to separate view and model matrices] in p5.js v1.10.0
+      renderer.uViewMatrix.set(p5.Matrix.identity());
+    }
+    else if(VERSION && ver>=1 && subVer>=6) {
+      // behavior in p5.js v1.6 -> v1.9.4
+      renderer.uMVMatrix = p5.Matrix.identity();
+    }
+    else
+      renderer.resetMatrix();
+      
     // 4) set new projection (ortho)
     renderer._curCamera.ortho(0, w, -h, 0, -d, +d);
-    // renderer.ortho();
-    // renderer.translate(-w/2, -h/2);
-
   }
 
 
