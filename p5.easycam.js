@@ -2,11 +2,11 @@
  *
  * The p5.EasyCam library - Easy 3D CameraControl for p5.js and WEBGL.
  *
- *   Copyright © 2017-2024 by p5.EasyCam authors
+ *   Copyright © 2017-2026 by p5.EasyCam authors
  *
- *   Source: https://github.com/freshfork/p5.EasyCam
+ *   Source: github.com/freshfork/p5.EasyCam
  *
- *   MIT License: https://opensource.org/licenses/MIT
+ *   MIT License: opensource.org/licenses/MIT
  *
  *
  * explanatory notes:
@@ -33,9 +33,9 @@ var Dw = (function(ext) {
 const INFO =
 {
   /** name    */ LIBRARY : "p5.EasyCam",
-  /** version */ VERSION : "1.2.3",
+  /** version */ VERSION : "1.3.0", // fixes for p5.js v2.0
   /** author  */ AUTHOR  : "p5.EasyCam authors",
-  /** source  */ SOURCE  : "https://github.com/freshfork/p5.EasyCam",
+  /** source  */ SOURCE  : "github.com/freshfork/p5.EasyCam",
 
   toString : function(){
     return this.LIBRARY+" v"+this.VERSION+" by "+this.AUTHOR+" ("+this.SOURCE+")";
@@ -439,13 +439,29 @@ class EasyCam {
     // camera mouse listeners
     this.attachMouseListeners();
 
-    // P5 registered callbacks, TODO unregister on dispose
     this.auto_update = true;
-    this.P5.registerMethod('pre', function(){
-      if(cam.auto_update){
-        cam.update();
-      }
-    });
+
+    // P5 registered callbacks, TODO unregister on dispose
+    if(p5.registerAddon){ // p5.js v2.0
+      const camAddon = function(p5, fn, lifecycles){
+        lifecycles.predraw = function(){
+          // do at the start of each draw call:
+          if(cam.auto_update){
+            cam.update();
+          }
+        }
+      };
+      p5.registerAddon(camAddon);
+    } else { // p5.js v1.0
+      this.P5.registerMethod('pre', function(){
+        if(cam.auto_update){
+          cam.update();
+        }
+      });
+    }
+
+
+
 
     // damped camera transition
     this.dampedZoom = new DampedAction(function(d){ cam.zoom   (d * cam.getZoomMult    ()); }  );
@@ -1064,19 +1080,22 @@ class EasyCam {
     const VERSION = (window.VERSION !== undefined) ? window.VERSION : '1.4.0';
     const subs = VERSION.split(".");
     const ver = subs[0], subVer = subs[1];
-    if(VERSION && ver>=1 && subVer>=10) {
+    if(VERSION && ver>=2 || (ver>=1 && subVer>=10)) {
       //behavior change [to separate view and model matrices] in p5.js v1.10.0
-      renderer.uViewMatrix.set(p5.Matrix.identity());
+      renderer.uViewMatrix.reset();
+      //renderer.uViewMatrix.set(p5.Matrix.identity());
     }
     else if(VERSION && ver>=1 && subVer>=6) {
       // behavior in p5.js v1.6 -> v1.9.4
       renderer.uMVMatrix = p5.Matrix.identity();
     }
     else
-      renderer.resetMatrix();
+      renderer.resetMatrix(); // works back to p5.js v0.10.2
       
     // 4) set new projection (ortho)
-    renderer._curCamera.ortho(0, w, -h, 0, -d, +d);
+    if(VERSION && ver>=2)
+    renderer.ortho(0, w, -h, 0, -d, +d);
+    else renderer._curCamera.ortho(0, w, -h, 0, -d, +d);
   }
 
 
@@ -1098,7 +1117,7 @@ class EasyCam {
     // gl.finish();
 
     // 2) restore modelview/projection
-    renderer.uMVMatrix.set(this.pushed_uMVMatrix);
+    //renderer.uMVMatrix.set(this.pushed_uMVMatrix);
     renderer.uPMatrix .set(this.pushed_uPMatrix );
     // 1) enable DEPTH_TEST
     gl.enable(gl.DEPTH_TEST);
