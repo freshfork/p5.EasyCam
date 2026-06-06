@@ -2,7 +2,7 @@
  *
  * The p5.EasyCam library - Easy 3D CameraControl for p5.js and WEBGL.
  *
- *   Copyright © 2017-2025 by p5.EasyCam authors
+ *   Copyright © 2017-2026 by p5.EasyCam authors
  *
  *   Source: github.com/freshfork/p5.EasyCam
  *
@@ -33,7 +33,7 @@ var Dw = (function(ext) {
 const INFO =
 {
   /** name    */ LIBRARY : "p5.EasyCam",
-  /** version */ VERSION : "1.2.4", // fixes for p5.js v2.0
+  /** version */ VERSION : "1.3.0", // fixes for p5.js v2.0
   /** author  */ AUTHOR  : "p5.EasyCam authors",
   /** source  */ SOURCE  : "github.com/freshfork/p5.EasyCam",
 
